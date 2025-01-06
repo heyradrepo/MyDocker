@@ -38,18 +38,14 @@ chmod +x /usr/bin/xtra /usr/bin/ffprobe /usr/bin/ffplay
 cd /Temp
 curl https://rclone.org/install.sh | bash
 
-# Rename binaries
+# rename binaries
 mv /usr/bin/rclone /usr/bin/xone
 mv /usr/bin/aria2c /usr/bin/xria
 mv /usr/bin/qbittorrent-nox /usr/bin/xnox
 
-# Set workdir and create necessary directories
-mkdir -p /usr/src/app
-cd /usr/src/app
-
 # Clone and build MEGA SDK
-git clone https://github.com/meganz/sdk.git --depth=1 -b v4.8.0 sdk
-cd sdk
+git clone https://github.com/meganz/sdk.git --depth=1 -b v4.8.0 /home/sdk
+cd /home/sdk
 rm -rf .git
 autoupdate -fIv && ./autogen.sh
 ./configure --disable-silent-rules --enable-python --with-sodium --disable-examples
@@ -58,25 +54,8 @@ make -j$(nproc --all)
 # Build and install the MEGA SDK Python bindings
 cd bindings/python/
 python3.12 setup.py bdist_wheel
-
-# Create and activate virtual environment
-python3.12 -m venv /usr/src/app/mltbenv
-source /usr/src/app/mltbenv/bin/activate
-
-# Upgrade pip and install MEGA SDK wheel
-pip install --upgrade pip setuptools wheel
-pip install dist/megasdk-4.8.0-*.whl
-
-# Install additional Python modules
-pip install aiofiles aioshutil anytree apscheduler aria2p asyncio cloudscraper dnspython \
-    feedparser flask gevent google-api-python-client google-auth-httplib2 google-auth-oauthlib \
-    gunicorn httpx lxml motor natsort par2cmdline-turbo pillow psutil pymongo python-dotenv \
-    python-magic qbittorrent-api requests telegraph tenacity urllib3 uvloop xattr yt-dlp[default] \
-    pyrofork tgcrypto
-
-# Complete Task
-deactivate
-cd ~
+pip3 install --break-system-packages --no-cache-dir dist/megasdk-4.8.0-*.whl
+pip3 install --break-system-packages --no-cache-dir tgcrypto
 
 # Clean up unnecessary packages
 apt-get remove -y \
@@ -93,5 +72,4 @@ apt-get autoclean -y
 # Clean up temporary directories and files
 rm -rf /Temp
 rm -rf Aeon
-rm -rf /usr/src/app/sdk
 rm -rf Dockerfile
