@@ -55,7 +55,14 @@ make -j$(nproc --all)
 cd bindings/python/
 python3.12 setup.py bdist_wheel
 pip3 install --break-system-packages --no-cache-dir dist/megasdk-4.8.0-*.whl
-pip3 install --break-system-packages --no-cache-dir tgcrypto
+pip3 install --break-system-packages --no-cache-dir \
+    aiofiles aioshutil anytree apscheduler aria2p asyncio \
+    cloudscraper dnspython feedparser flask gevent \
+    google-api-python-client google-auth-httplib2 google-auth-oauthlib \
+    gunicorn httpx lxml motor natsort pillow psutil \
+    pymongo python-dotenv python-magic qbittorrent-api requests \
+    telegraph tenacity urllib3 uvloop xattr yt-dlp[default] \
+    tgcrypto pyrofork
 
 # Clean up unnecessary packages
 apt-get remove -y \
