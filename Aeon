@@ -43,9 +43,13 @@ mv /usr/bin/rclone /usr/bin/xone
 mv /usr/bin/aria2c /usr/bin/xria
 mv /usr/bin/qbittorrent-nox /usr/bin/xnox
 
+# Set workdir and create necessary directories
+mkdir -p /usr/src/app
+cd /usr/src/app
+
 # Clone and build MEGA SDK
-git clone https://github.com/meganz/sdk.git --depth=1 -b v4.8.0 /home/sdk
-cd /home/sdk
+git clone https://github.com/meganz/sdk.git --depth=1 -b v4.8.0 sdk
+cd sdk
 rm -rf .git
 autoupdate -fIv && ./autogen.sh
 ./configure --disable-silent-rules --enable-python --with-sodium --disable-examples
@@ -56,8 +60,8 @@ cd bindings/python/
 python3.12 setup.py bdist_wheel
 
 # Create and activate virtual environment
-python3.12 -m venv /home/sdk/mltbenv
-source /home/sdk/mltbenv/bin/activate
+python3.12 -m venv /usr/src/app/mltbenv
+source /usr/src/app/mltbenv/bin/activate
 
 # Upgrade pip and install MEGA SDK wheel
 pip install --upgrade pip setuptools wheel
@@ -87,4 +91,4 @@ apt-get autoclean -y
 
 # Clean up temporary directories and files
 rm -rf /Temp
-rm -rf /home/sdk/.git
+rm -rf /usr/src/app/sdk/.git
