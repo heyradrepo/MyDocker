@@ -74,8 +74,9 @@ pip install aiofiles aioshutil anytree apscheduler aria2p asyncio cloudscraper d
     python-magic qbittorrent-api requests telegraph tenacity urllib3 uvloop xattr yt-dlp[default] \
     pyrofork tgcrypto
 
-# Deactivate virtual environment
+# Complete Task
 deactivate
+cd ~
 
 # Clean up unnecessary packages
 apt-get remove -y \
@@ -92,4 +93,5 @@ apt-get autoclean -y
 # Clean up temporary directories and files
 rm -rf /Temp
 rm -rf Aeon
+rm -rf /usr/src/app/sdk
 rm -rf Dockerfile
