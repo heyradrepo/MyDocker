@@ -1,4 +1,4 @@
-name: Docker.io
+name: Build Docker Images
 
 on:
   workflow_dispatch:
@@ -13,19 +13,30 @@ on:
       image_name:
         description: 'Docker Image Name'
         required: true
+      tag:
+        description: 'Docker Image Tag (default: latest)'
+        required: false
+        default: 'latest'
+      amd64_only:
+        description: 'Build only for amd64'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   build:
     runs-on: ubuntu-24.04
 
     steps:
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up QEMU
+        if: ${{ inputs.amd64_only == false }}
         uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
+        if: ${{ inputs.amd64_only == false }}
         uses: docker/setup-buildx-action@v3
 
       - name: Login to Docker.io
@@ -38,18 +49,16 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          tags: |
-            latest
-          images: |
-            ${{ inputs.username }}/${{ inputs.image_name }}
+          tags: ${{ inputs.tag }}
+          images: ${{ inputs.username }}/${{ inputs.image_name }}
 
-      - name: Build and Push to Docker.io
+      - name: Build and Push
         uses: docker/build-push-action@v5
         with:
           push: true
           no-cache: true
           provenance: false
-          platforms: linux/arm64,linux/amd64
+          platforms: ${{ inputs.amd64_only == true && 'linux/amd64' || 'linux/arm64,linux/amd64' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           annotations: ${{ steps.meta.outputs.annotations }}
