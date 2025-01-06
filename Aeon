@@ -72,7 +72,7 @@ pip install aiofiles aioshutil anytree apscheduler aria2p asyncio cloudscraper d
     feedparser flask gevent google-api-python-client google-auth-httplib2 google-auth-oauthlib \
     gunicorn httpx lxml motor natsort par2cmdline-turbo pillow psutil pymongo python-dotenv \
     python-magic qbittorrent-api requests telegraph tenacity urllib3 uvloop xattr yt-dlp[default] \
-    kurigram tgcrypto
+    pyrofork tgcrypto
 
 # Deactivate virtual environment
 deactivate
@@ -91,4 +91,5 @@ apt-get autoclean -y
 
 # Clean up temporary directories and files
 rm -rf /Temp
-rm -rf /usr/src/app/sdk/.git
+rm -rf Aeon
+rm -rf Dockerfile
