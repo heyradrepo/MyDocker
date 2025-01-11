@@ -59,7 +59,7 @@ install_ffmpeg() {
             wget https://github.com/5hojib/FFmpeg-Builds/releases/download/latest/ffmpeg-n7.1-latest-linux64-gpl-7.1.tar.xz
             ;;
         aarch64)
-            wget https://github.com/5hojib/FFmpeg-Builds/releases/download/latest/ffmpeg-n7.1-latest-linuxarm64-gpl-7.1.tar.xz
+            wget https://github.com/5hojib/FFmpeg-Builds/releases/latest/download/ffmpeg-n7.1-latest-linuxarm64-gpl-7.1.tar.xz
             ;;
         *)
             echo "Unsupported architecture for FFmpeg: $ARCH"
@@ -84,7 +84,17 @@ install_rclone() {
 
 # Install Python packages
 install_python_packages() {
-    pip3 install --break-system-packages --no-cache-dir -U setuptools uv
+    pip3 install --break-system-packages --ignore-installed --no-cache-dir -U setuptools uv
+
+    # Install additional Python packages
+    pip3 install --break-system-packages --ignore-installed --no-cache-dir \
+        aiofiles aioshutil anytree apscheduler aria2p asyncio \
+        cloudscraper dnspython feedparser flask gevent \
+        google-api-python-client google-auth-httplib2 google-auth-oauthlib \
+        gunicorn httpx lxml motor natsort pillow psutil \
+        pymongo python-dotenv python-magic qbittorrent-api requests \
+        telegraph tenacity urllib3 uvloop xattr yt-dlp[default] \
+        tgcrypto kurigram
 }
 
 # Clone and build MEGA SDK
