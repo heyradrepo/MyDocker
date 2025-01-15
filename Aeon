@@ -94,7 +94,7 @@ install_python_packages() {
         gunicorn httpx lxml motor natsort pillow psutil \
         pymongo python-dotenv python-magic qbittorrent-api requests \
         telegraph tenacity urllib3 uvloop xattr yt-dlp[default] \
-        tgcrypto kurigram
+        tgcrypto pyrofork==2.2.11
 }
 
 # Clone and build MEGA SDK
