@@ -93,7 +93,7 @@ install_python_packages() {
         google-api-python-client google-auth-httplib2 google-auth-oauthlib \
         gunicorn httpx lxml motor natsort pillow psutil \
         pymongo python-dotenv python-magic qbittorrent-api requests \
-        telegraph tenacity urllib3 uvloop xattr yt-dlp[default] \
+        telegraph tenacity urllib3 uvloop xattr yt-dlp[default,curl-cffi] \
         tgcrypto pyrofork
 }
 
