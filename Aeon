@@ -56,7 +56,7 @@ cd bindings/python/
 python3.12 setup.py bdist_wheel
 pip3 install --break-system-packages --no-cache-dir dist/megasdk-4.8.0-*.whl
 pip3 install --break-system-packages --ignore-installed --no-cache-dir \
-    aiofiles aioshutil anytree apscheduler aria2p asyncio \
+    aiofiles aiohttp aioshutil anytree apscheduler aria2p asyncio \
     cloudscraper dnspython feedparser flask gevent \
     google-api-python-client google-auth-httplib2 google-auth-oauthlib \
     gunicorn httpx lxml motor natsort pillow psutil \
