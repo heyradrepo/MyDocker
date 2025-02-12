@@ -98,11 +98,8 @@ install_python_packages() {
 
 # Install JDownloader
 install_jdownloader() {
-    mkdir -p /opt/jdownloader
-    cd /opt/jdownloader
-    wget http://installer.jdownloader.org/JDownloader.jar
-    echo -e "#!/bin/bash\njava -jar /opt/jdownloader/JDownloader.jar" > /usr/bin/jdownloader
-    chmod +x /usr/bin/jdownloader
+    mkdir -p /JDownloader
+    wget -O /JDownloader/JDownloader.jar http://installer.jdownloader.org/JDownloader.jar
 }
 
 # Clean up unnecessary packages and temporary files
