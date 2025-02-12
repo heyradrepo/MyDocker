@@ -24,7 +24,7 @@ install_dependencies() {
         libcurl4-openssl-dev libsodium-dev libssl-dev \
         libcrypto++-dev libc-ares-dev libsqlite3-dev \
         libfreeimage-dev swig libboost-all-dev \
-        libpthread-stubs0-dev zlib1g-dev
+        libpthread-stubs0-dev zlib1g-dev openjdk-17-jre
 }
 
 # Download and install qbittorrent-nox based on system architecture
@@ -88,27 +88,21 @@ install_python_packages() {
 
     # Install additional Python packages
     pip3 install --break-system-packages --ignore-installed --no-cache-dir \
-        aiofiles aioshutil anytree apscheduler aria2p asyncio \
-        cloudscraper dnspython feedparser flask gevent \
-        google-api-python-client google-auth-httplib2 google-auth-oauthlib \
-        gunicorn httpx lxml motor natsort pillow psutil \
-        pymongo python-dotenv python-magic qbittorrent-api requests \
-        telegraph tenacity urllib3 uvloop xattr yt-dlp[default,curl-cffi] \
-        tgcrypto pyrofork
+        asyncio aiofiles aioshutil anytree apscheduler aioaria2 aioqbt \
+        cloudscraper dnspython fastapi feedparser google-api-python-client \
+        google-auth-httplib2 google-auth-oauthlib gunicorn httpx jinja2 lxml \
+        motor natsort par2cmdline-turbo pillow psutil pymongo pyrofork \
+        python-magic requests telegraph tenacity tgcrypto urllib3 uvicorn \
+        uvloop xattr yt-dlp[default,curl-cffi]
 }
 
-# Clone and build MEGA SDK
-build_mega_sdk() {
-    git clone https://github.com/meganz/sdk.git --depth=1 -b v4.8.0 /home/sdk
-    cd /home/sdk
-    rm -rf .git
-    autoupdate -fIv && ./autogen.sh
-    ./configure --disable-silent-rules --enable-python --with-sodium --disable-examples
-    make -j$(nproc --all)
-
-    cd bindings/python/
-    python3.12 setup.py bdist_wheel
-    pip3 install --break-system-packages --no-cache-dir dist/megasdk-4.8.0-*.whl
+# Install JDownloader
+install_jdownloader() {
+    mkdir -p /opt/jdownloader
+    cd /opt/jdownloader
+    wget http://installer.jdownloader.org/JDownloader.jar
+    echo -e "#!/bin/bash\njava -jar /opt/jdownloader/JDownloader.jar" > /usr/bin/jdownloader
+    chmod +x /usr/bin/jdownloader
 }
 
 # Clean up unnecessary packages and temporary files
@@ -133,7 +127,7 @@ main() {
     install_ffmpeg
     install_rclone
     install_python_packages
-    build_mega_sdk
+    install_jdownloader
     cleanup
 }
 
