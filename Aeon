@@ -1,26 +1,20 @@
 #!/bin/bash
 
-set -eu
-
-log() {
-    echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1"
-}
-
+# Update and upgrade system packages
 update_system() {
-    log "Updating and upgrading system packages..."
     apt-get update && apt-get upgrade -y
 }
 
+# Install Python 3.12 and essential dependencies
 install_python() {
-    log "Installing Python 3.12 and dependencies..."
     apt-get install -y software-properties-common
     add-apt-repository -y ppa:deadsnakes/ppa
     apt-get update
     apt-get install -y python3.12 python3.12-dev python3.12-venv python3-pip libpython3.12 libpython3.12-dev
 }
 
+# Install additional system dependencies
 install_dependencies() {
-    log "Installing additional system dependencies..."
     apt-get install -y --no-install-recommends \
         apt-utils aria2 curl zstd git libmagic-dev \
         locales mediainfo neofetch p7zip-full \
@@ -33,6 +27,7 @@ install_dependencies() {
         libpthread-stubs0-dev zlib1g-dev
 }
 
+# Download and install qbittorrent-nox based on system architecture
 install_qbittorrent() {
     ARCH=$(uname -m)
     mkdir -p /usr/local/bin
@@ -53,6 +48,7 @@ install_qbittorrent() {
     chmod 700 /usr/local/bin/xnox
 }
 
+# Install FFmpeg based on system architecture
 install_ffmpeg() {
     ARCH=$(uname -m)
     mkdir -p /Temp
@@ -79,12 +75,14 @@ install_ffmpeg() {
     chmod +x /usr/bin/xtra /usr/bin/ffprobe /usr/bin/ffplay
 }
 
+# Install rclone and rename binaries
 install_rclone() {
     curl https://rclone.org/install.sh | bash
     mv /usr/bin/rclone /usr/bin/xone
     mv /usr/bin/aria2c /usr/bin/xria
 }
 
+# Install Python packages
 install_python_packages() {
     pip3 install --break-system-packages --ignore-installed --no-cache-dir \
         asyncio \
@@ -124,6 +122,7 @@ install_python_packages() {
         yt-dlp[default,curl-cffi]
 }
 
+# Clone and build MEGA SDK
 build_mega_sdk() {
     git clone https://github.com/meganz/sdk.git --depth=1 -b v4.8.0 /home/sdk
     cd /home/sdk
@@ -137,6 +136,7 @@ build_mega_sdk() {
     pip3 install --break-system-packages --no-cache-dir dist/megasdk-4.8.0-*.whl
 }
 
+# Clean up unnecessary packages and temporary files
 cleanup() {
     apt-get remove -y \
         autoconf automake build-essential cmake g++ gcc gettext \
@@ -149,6 +149,7 @@ cleanup() {
     rm -rf /Temp Aeon Dockerfile
 }
 
+# Main script execution
 main() {
     update_system
     install_python
