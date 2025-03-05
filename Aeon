@@ -33,19 +33,19 @@ wget https://github.com/arakurumi/FFmpeg-Builds/releases/download/latest/ffmpeg-
 7z x ffmpeg-n7.1-latest-linux64-nonfree-7.1.tar.xz
 7z x ffmpeg-n7.1-latest-linux64-nonfree-7.1.tar
 cd /Temp/ffmpeg-n7.1-latest-linux64-nonfree-7.1/bin
-mv ffmpeg /usr/bin/xtra
+mv ffmpeg /usr/bin/mediax
 mv ffprobe /usr/bin/ffprobe
 mv ffplay /usr/bin/ffplay
-chmod +x /usr/bin/xtra /usr/bin/ffprobe /usr/bin/ffplay
+chmod +x /usr/bin/mediax /usr/bin/ffprobe /usr/bin/ffplay
 
 # Install rclone and rename binaries
 cd /Temp
 curl https://rclone.org/install.sh | bash
 
 # rename binaries
-mv /usr/bin/rclone /usr/bin/xone
-mv /usr/bin/aria2c /usr/bin/xria
-mv /usr/bin/qbittorrent-nox /usr/bin/xnox
+mv /usr/bin/rclone /usr/bin/remotex
+mv /usr/bin/aria2c /usr/bin/fetchx
+mv /usr/bin/qbittorrent-nox /usr/bin/datadlx
 
 # Clone and build MEGA SDK
 git clone https://github.com/meganz/sdk.git --depth=1 -b v4.8.0 /home/sdk
@@ -62,12 +62,12 @@ pip3 install --break-system-packages --no-cache-dir dist/megasdk-4.8.0-*.whl
 
 # Install additional Python packages
 pip3 install --break-system-packages --no-cache-dir \
-    asyncio aiofiles aioshutil anytree apscheduler aioaria2 aioqbt \
-    cloudscraper dnspython fastapi feedparser google-api-python-client \
-    google-auth-httplib2 google-auth-oauthlib gunicorn httpx jinja2 lxml \
-    motor natsort par2cmdline-turbo pillow psutil pymongo pyrofork \
-    python-magic requests telegraph tenacity tgcrypto urllib3 uvicorn \
-    uvloop xattr yt-dlp[default,curl-cffi]
+    aiofiles aiohttp aioshutil anytree apscheduler aria2p asyncio \
+    cloudscraper dnspython feedparser flask gevent google-api-python-client \
+    google-auth-httplib2 google-auth-oauthlib gunicorn httpx lxml motor \
+    natsort pillow psutil pymongo pyrofork python-dotenv python-magic \
+    qbittorrent-api requests telegraph tenacity tgcrypto urllib3 uvloop \
+    xattr yt-dlp[default,curl-cffi] speedtest-cli
 
 # Clean up unnecessary packages
 apt-get remove -y \
