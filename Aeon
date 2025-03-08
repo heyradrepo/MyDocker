@@ -68,7 +68,7 @@ pip3 install --no-cache-dir \
     google-auth-oauthlib gunicorn \
     git+https://github.com/zevtyardt/lk21.git httpx langcodes[data] lxml \
     motor mutagen markdown natsort pillow psutil pybase64 pycountry pymongo \
-    pyrogram python-dotenv python-magic qbittorrent-api requests \
+    pyrogram python-dotenv python-magic pytz qbittorrent-api requests \
     speedtest-cli telegraph tenacity tgcrypto uvloop xattr yt-dlp[default,curl-cffi]
 
 # Clean up unnecessary packages
