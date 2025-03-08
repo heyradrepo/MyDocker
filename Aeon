@@ -69,7 +69,7 @@ pip3 install --no-cache-dir \
     git+https://github.com/zevtyardt/lk21.git httpx langcodes[data] lxml \
     motor mutagen markdown natsort pillow psutil pybase64 pycountry pymongo \
     pyrogram python-dotenv python-magic qbittorrent-api requests \
-    speedtest-cli telegraph tenacity tgcrypto uvloop xattr yt-dlp
+    speedtest-cli telegraph tenacity tgcrypto uvloop xattr yt-dlp[default,curl-cffi]
 
 # Clean up unnecessary packages
 apt-get remove -y \
